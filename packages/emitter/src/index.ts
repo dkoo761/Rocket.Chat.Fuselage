@@ -6,6 +6,7 @@ export interface Emitter {
   once<T = any>(type: EventType, handler: Handler<T>): void;
   off<T = any>(type: EventType, handler: Handler<T>): void;
   emit<T = any>(type: EventType, event?: T): void;
+  events() : Array<EventType>;
 }
 
 /**
@@ -44,7 +45,14 @@ export class Emitter implements Emitter {
   }
 
   /**
-   * Adds the `handler` function to listen events of the `type` type.
+   * @returns Array of event types
+   */
+  events() : Array<EventType> {
+    return Array.from(this[evts].keys());
+  }
+
+  /**
+   * Adds a *one-time* `handler` function for the event of the `type` type.
    *
    * @returns a function to unsubscribe the handler invoking `this.off(type, handler)`
    */
@@ -55,11 +63,6 @@ export class Emitter implements Emitter {
     return () => this.off(type, handler);
   }
 
-  /**
-   * Adds a *one-time* `handler` function for the event of the `type` type.
-   *
-   * @returns a function to unsubscribe the handler invoking `this.off(type, handler)`
-   */
   once<T = any>(type: EventType, handler: Handler<T>) : OffCallbackHandler {
     const counter = this[once].get(handler) || 0;
     this[once].set(handler, counter + 1);

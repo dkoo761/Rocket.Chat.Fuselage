@@ -89,4 +89,48 @@ describe('Emitter function', () => {
       expect(emitter.has('test')).toBe(false);
     });
   });
+
+  describe('`events` method', () => {
+    it('It should have `test` event', () => {
+      emitter.on('test', handler);
+      expect(emitter.events()).toEqual(['test']);
+    });
+
+    it('It should have `test` and `test2` event', () => {
+      emitter.on('test', handler);
+      emitter.on('test2', handler);
+      expect(emitter.events()).toEqual(['test', 'test2']);
+    });
+
+
+    it('It should have `test` after removal event', () => {
+      emitter.on('test', handler);
+      emitter.on('test2', handler)();
+      expect(emitter.events()).toEqual(['test']);
+    });
+
+    it('It should have `test` after emit event', () => {
+      emitter.once('test', handler);
+      emitter.on('test', handler);
+      emitter.emit('test');
+      expect(emitter.events()).toEqual(['test']);
+    });
+
+    it('It should have no `test` event after emit event once', () => {
+      emitter.once('test', handler);
+      emitter.emit('test');
+      expect(emitter.events()).toEqual([]);
+    });
+
+    it('It should have no `test` handler after use stop callback', () => {
+      emitter.on('test', handler)();
+      expect(emitter.has('test')).toBe(false);
+    });
+
+    it('It should have no `test` handler after emit once', () => {
+      emitter.once('test', handler);
+      emitter.emit('test');
+      expect(emitter.has('test')).toBe(false);
+    });
+  });
 });

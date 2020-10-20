@@ -38,25 +38,23 @@ yarn add @rocket.chat/emitter
 -   [Emitter](#emitter)
     -   [has](#has)
         -   [Parameters](#parameters)
+    -   [events](#events)
     -   [on](#on)
         -   [Parameters](#parameters-1)
-    -   [once](#once)
-        -   [Parameters](#parameters-2)
     -   [off](#off)
-        -   [Parameters](#parameters-3)
+        -   [Parameters](#parameters-2)
     -   [emit](#emit)
-        -   [Parameters](#parameters-4)
+        -   [Parameters](#parameters-3)
 -   [Emitter](#emitter-1)
     -   [has](#has-1)
-        -   [Parameters](#parameters-5)
+        -   [Parameters](#parameters-4)
+    -   [events](#events-1)
     -   [on](#on-1)
-        -   [Parameters](#parameters-6)
-    -   [once](#once-1)
-        -   [Parameters](#parameters-7)
+        -   [Parameters](#parameters-5)
     -   [off](#off-1)
-        -   [Parameters](#parameters-8)
+        -   [Parameters](#parameters-6)
     -   [emit](#emit-1)
-        -   [Parameters](#parameters-9)
+        -   [Parameters](#parameters-7)
 -   [EventType](#eventtype)
 -   [Handler](#handler)
 
@@ -72,18 +70,11 @@ Returns `true` if this emmiter has a listener attached to the `key` event type
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
+#### events
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[EventType](#eventtype)>** Array of event types
+
 #### on
-
-Adds the `handler` function to listen events of the `type` type.
-
-##### Parameters
-
--   `type` **[EventType](#eventtype)** 
--   `handler` **[Handler](#handler)&lt;T>** 
-
-Returns **OffCallbackHandler** a function to unsubscribe the handler invoking `this.off(type, handler)`
-
-#### once
 
 Adds a _one-time_ `handler` function for the event of the `type` type.
 
@@ -131,18 +122,11 @@ Returns `true` if this emmiter has a listener attached to the `key` event type
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
+#### events
+
+Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[EventType](#eventtype)>** Array of event types
+
 #### on
-
-Adds the `handler` function to listen events of the `type` type.
-
-##### Parameters
-
--   `type` **[EventType](#eventtype)** 
--   `handler` **[Handler](#handler)&lt;T>** 
-
-Returns **OffCallbackHandler** a function to unsubscribe the handler invoking `this.off(type, handler)`
-
-#### once
 
 Adds a _one-time_ `handler` function for the event of the `type` type.
 

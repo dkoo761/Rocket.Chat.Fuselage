@@ -3,8 +3,15 @@
 @use '../../styles/typography.scss';
 @import '../../styles/mixins/all.scss';
 
+
+$sidebar-topbar-color: theme('sidebar-topbar-color', colors.neutral(900));
+
 $sidebar-item-background-color: theme('sidebar-item-background-color', colors.surface());
+$sidebar-item-time-color: theme('sidebar-item-time-color', colors.neutral(700));
+$sidebar-item-icon-color: theme('sidebar-item-icom-color', colors.neutral(700));
 $sidebar-item-color: theme('sidebar-item-color', colors.foreground('hint'));
+$sidebar-title-color: theme('sidebar-title-color', colors.foreground('hint'));
+$sidebar-topbar-color: theme('sidebar-topbar-color', colors.foreground('hint'));
 $sidebar-item-color-highlighted: theme('sidebar-item-color-highlighted', colors.foreground('alternative'));
 $sidebar-item-background-color-hover: theme('sidebar-item-background-color-hover', colors.neutral(800));
 $sidebar-item-color-hover: theme('sidebar-item-color-hover', colors.foreground('hint'));
@@ -35,7 +42,12 @@ $sidebar-item-color-selected: theme('sidebar-item-color-selected', colors.foregr
 
 .rcx-sidebar {
   &-topbar {
-    color: $sidebar-item-color;
+    color: $sidebar-topbar-color;
+
+    &__title {
+      @include typography.use-font-scale(p2);
+      color: $sidebar-topbar-color;
+    }
 
     &--section {
       padding-block-start: lengths.padding(4);
@@ -115,6 +127,8 @@ $sidebar-item-color-selected: theme('sidebar-item-color-selected', colors.foregr
 
       width: lengths.size(12);
       margin-inline: lengths.margin(4);
+
+      color: $sidebar-item-icon-color;
     }
 
     &__content {
@@ -140,6 +154,7 @@ $sidebar-item-color-selected: theme('sidebar-item-color-selected', colors.foregr
     &__time {
       @include typography.use-font-scale(micro);
       margin-inline: lengths.margin(4);
+      color: $sidebar-item-time-color;
     }
 
     &__badge {
@@ -179,6 +194,6 @@ $sidebar-item-color-selected: theme('sidebar-item-color-selected', colors.foregr
     padding-block: lengths.padding(12);
     padding-inline: lengths.padding(16);
 
-    color: colors.foreground(hint);
+    color: $sidebar-title-color;
   }
 }

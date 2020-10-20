@@ -16,6 +16,7 @@ export interface Emitter
 |  Method | Description |
 |  --- | --- |
 |  [emit(type, event)](./emitter.emitter.emit.md) |  |
+|  [events()](./emitter.emitter.events.md) |  |
 |  [off(type, handler)](./emitter.emitter.off.md) |  |
 |  [on(type, handler)](./emitter.emitter.on.md) |  |
 |  [once(type, handler)](./emitter.emitter.once.md) |  |
