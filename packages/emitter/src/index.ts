@@ -40,6 +40,7 @@ export class Emitter implements Emitter {
   /**
    * Returns `true` if this emmiter has a listener attached to the `key` event type
    */
+
   has(key: EventType): boolean {
     return this[evts].has(key);
   }
@@ -47,8 +48,22 @@ export class Emitter implements Emitter {
   /**
    * @returns Array of event types
    */
+
   events() : Array<EventType> {
     return Array.from(this[evts].keys());
+  }
+
+  /**
+   * Adds a `handler` function for the event of the `type` type.
+   *
+   * @returns a function to unsubscribe the handler invoking `this.off(type, handler)`
+   */
+
+  on<T = any>(type: EventType, handler: Handler<T>) : OffCallbackHandler {
+    const handlers = this[evts].get(type) || [] as EventHandlerList;
+    handlers.push(handler as any);
+    this[evts].set(type, handlers);
+    return () => this.off(type, handler);
   }
 
   /**
@@ -56,12 +71,6 @@ export class Emitter implements Emitter {
    *
    * @returns a function to unsubscribe the handler invoking `this.off(type, handler)`
    */
-  on<T = any>(type: EventType, handler: Handler<T>) : OffCallbackHandler {
-    const handlers = this[evts].get(type) || [] as EventHandlerList;
-    handlers.push(handler as any);
-    this[evts].set(type, handlers);
-    return () => this.off(type, handler);
-  }
 
   once<T = any>(type: EventType, handler: Handler<T>) : OffCallbackHandler {
     const counter = this[once].get(handler) || 0;
