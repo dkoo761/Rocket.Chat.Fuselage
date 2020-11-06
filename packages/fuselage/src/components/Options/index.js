@@ -54,7 +54,7 @@ export const Options = React.forwardRef(({
       current.scrollTop = li.offsetTop;
     }
   }, [cursor, ref]);
-  const optionsMemoized = useMemo(() => options.map(([value, label, selected], i) => <OptionComponent role='option' label={label} onMouseDown={(e) => prevent(e) & onSelect([value, label]) && false} key={value} value={value} selected={selected || (multiple !== true && null)} focus={cursor === i || null}/>), [options, multiple, cursor, onSelect]);
+  const optionsMemoized = useMemo(() => options.map(([value, label, selected], i) => <OptionComponent role='option' label={label} onClick={(e) => prevent(e) & onSelect([value, label]) && false} key={value} value={value} selected={selected || (multiple !== true && null)} focus={cursor === i || null}/>), [options, multiple, cursor, onSelect]);
   return <Box rcx-options {...props}>
     <Tile padding={0} paddingBlock={'x12'} paddingInline={0} elevation='2'>
       <Scrollable vertical smooth>

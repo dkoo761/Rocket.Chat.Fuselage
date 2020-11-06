@@ -1,6 +1,6 @@
-import { useMergedRefs } from '@rocket.chat/fuselage-hooks';
+import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import PropTypes from 'prop-types';
-import React, { forwardRef, useLayoutEffect, useRef, useCallback } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { Box } from '../Box';
 import { Label } from '../Label';
@@ -24,17 +24,13 @@ export const CheckBox = forwardRef(function CheckBox({
   onInvalid,
   ...props
 }, ref) {
-  const innerRef = useRef();
-  const mergedRef = useMergedRefs(ref, innerRef);
+  const [internalValue, setInternalValue] = useState(checked);
+  const internalChangedByClick = useMutableCallback(async () => {
+    const updatedVal = ! internalValue;
+    setInternalValue(updatedVal);
+    onChange(updatedVal);
+  });
 
-  useLayoutEffect(() => {
-    innerRef.current.indeterminate = indeterminate;
-  }, [innerRef, indeterminate]);
-
-  const handleChange = useCallback((event) => {
-    innerRef.current.indeterminate = indeterminate;
-    onChange && onChange.call(innerRef.current, event);
-  }, [innerRef, indeterminate, onChange]);
 
   return <Box is={Label} rcx-check-box {...props}>
     <Box
@@ -52,12 +48,12 @@ export const CheckBox = forwardRef(function CheckBox({
       type='checkbox'
       value={value}
       data-qa={dataQa || qa}
-      ref={mergedRef}
-      onChange={handleChange}
+      ref={ref}
+      readOnly
       onInput={onInput}
       onInvalid={onInvalid}
     />
-    <Box is='i' rcx-check-box__fake aria-hidden='true' />
+    <Box is='i' rcx-check-box__fake aria-hidden='true' onClick={internalChangedByClick}/>
   </Box>;
 });
 
