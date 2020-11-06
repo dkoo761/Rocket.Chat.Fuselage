@@ -1,5 +1,6 @@
+import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import PropTypes from 'prop-types';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { Box } from '../Box';
 import { Label } from '../Label';
@@ -22,6 +23,13 @@ export const RadioButton = forwardRef(function RadioButton({
   onInvalid,
   ...props
 }, ref) {
+  const [internalValue, setInternalValue] = useState(checked);
+  const internalChangedByClick = useMutableCallback(async () => {
+    const updatedVal = ! internalValue;
+    setInternalValue(updatedVal);
+    onChange(updatedVal);
+  });
+
   return <Box is={Label} rcx-radio-button {...props}>
     <Box
       is='input'
@@ -39,11 +47,11 @@ export const RadioButton = forwardRef(function RadioButton({
       value={value}
       data-qa={dataQa || qa}
       ref={ref}
-      onChange={onChange}
+      readOnly
       onInput={onInput}
       onInvalid={onInvalid}
     />
-    <Box is='i' rcx-radio-button__fake aria-hidden='true' />
+    <Box is='i' rcx-radio-button__fake aria-hidden='true' onClick={internalChangedByClick} />
   </Box>;
 });
 
